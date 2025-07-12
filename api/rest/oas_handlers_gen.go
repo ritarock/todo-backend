@@ -131,7 +131,7 @@ func (s *Server) handleTodosCreateTodoRequest(args [0]string, argsEscaped bool, 
 		}
 
 		type (
-			Request  = *Todo
+			Request  = *RequestTodo
 			Params   = struct{}
 			Response = *Todo
 		)

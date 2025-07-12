@@ -18,3 +18,6 @@ ogen:
 	-package rest \
 	-target api/rest \
 	-clean ./tsp-output/schema/openapi.yaml
+
+create.table:
+	sqlite3 data.sqlite < ./sqlc/schema.sql

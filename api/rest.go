@@ -9,10 +9,10 @@ import (
 )
 
 type handler struct {
-	repo repository.TodoRepository
+	repo *repository.TodoRepository
 }
 
-func NewHandler(repo repository.TodoRepository) *handler {
+func NewHandler(repo *repository.TodoRepository) *handler {
 	return &handler{
 		repo: repo,
 	}
@@ -44,8 +44,8 @@ func (h *handler) TodosGetTodo(ctx context.Context, params rest.TodosGetTodoPara
 	return toRest(todo), nil
 }
 
-func (h *handler) TodosCreateTodo(ctx context.Context, req *rest.Todo) (*rest.Todo, error) {
-	todo, err := h.repo.Create(ctx, &query.Todo{ID: req.ID, Content: req.Content, Completed: req.Completed})
+func (h *handler) TodosCreateTodo(ctx context.Context, req *rest.RequestTodo) (*rest.Todo, error) {
+	todo, err := h.repo.Create(ctx, &query.Todo{Content: req.Content, Completed: false})
 	if err != nil {
 		return nil, err
 	}
@@ -53,8 +53,10 @@ func (h *handler) TodosCreateTodo(ctx context.Context, req *rest.Todo) (*rest.To
 	return toRest(todo), nil
 }
 
-func (h *handler) TodosUpdateTodo(ctx context.Context, req *rest.Todo, params rest.TodosUpdateTodoParams) (*rest.Todo, error) {
-	if err := h.repo.Update(ctx, req.ID, &query.Todo{ID: req.ID, Content: req.Content, Completed: req.Completed}); err != nil {
+func (h *handler) TodosUpdateTodo(ctx context.Context,
+	req *rest.Todo, params rest.TodosUpdateTodoParams) (*rest.Todo, error) {
+	if err := h.repo.Update(ctx,
+		req.ID, &query.Todo{ID: req.ID, Content: req.Content, Completed: req.Completed}); err != nil {
 		return nil, err
 	}
 	return req, nil

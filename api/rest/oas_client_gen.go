@@ -31,7 +31,7 @@ type Invoker interface {
 	// TodosCreateTodo invokes Todos_createTodo operation.
 	//
 	// POST /todos
-	TodosCreateTodo(ctx context.Context, request *Todo) (*Todo, error)
+	TodosCreateTodo(ctx context.Context, request *RequestTodo) (*Todo, error)
 	// TodosDeleteTodo invokes Todos_deleteTodo operation.
 	//
 	// DELETE /todos/{todoID}
@@ -96,12 +96,12 @@ func (c *Client) requestURL(ctx context.Context) *url.URL {
 // TodosCreateTodo invokes Todos_createTodo operation.
 //
 // POST /todos
-func (c *Client) TodosCreateTodo(ctx context.Context, request *Todo) (*Todo, error) {
+func (c *Client) TodosCreateTodo(ctx context.Context, request *RequestTodo) (*Todo, error) {
 	res, err := c.sendTodosCreateTodo(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendTodosCreateTodo(ctx context.Context, request *Todo) (res *Todo, err error) {
+func (c *Client) sendTodosCreateTodo(ctx context.Context, request *RequestTodo) (res *Todo, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("Todos_createTodo"),
 		semconv.HTTPRequestMethodKey.String("POST"),

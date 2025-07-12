@@ -14,6 +14,10 @@ model Todo {
   completed: boolean;
 }
 
+model RequestTodo {
+  content: string;
+}
+
 @route("/todos")
 namespace Todos {
   @get
@@ -29,7 +33,7 @@ namespace Todos {
   };
 
   @post
-  op createTodo(@body todo: Todo): {
+  op createTodo(@body todo: RequestTodo): {
     @statusCode statusCode: 201;
     @body newTodo: Todo;
   };

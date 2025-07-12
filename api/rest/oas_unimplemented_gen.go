@@ -16,7 +16,7 @@ var _ Handler = UnimplementedHandler{}
 // TodosCreateTodo implements Todos_createTodo operation.
 //
 // POST /todos
-func (UnimplementedHandler) TodosCreateTodo(ctx context.Context, req *Todo) (r *Todo, _ error) {
+func (UnimplementedHandler) TodosCreateTodo(ctx context.Context, req *RequestTodo) (r *Todo, _ error) {
 	return r, ht.ErrNotImplemented
 }
 

@@ -11,7 +11,7 @@ type Handler interface {
 	// TodosCreateTodo implements Todos_createTodo operation.
 	//
 	// POST /todos
-	TodosCreateTodo(ctx context.Context, req *Todo) (*Todo, error)
+	TodosCreateTodo(ctx context.Context, req *RequestTodo) (*Todo, error)
 	// TodosDeleteTodo implements Todos_deleteTodo operation.
 	//
 	// DELETE /todos/{todoID}

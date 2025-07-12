@@ -2,6 +2,21 @@
 
 package rest
 
+// Ref: #/components/schemas/RequestTodo
+type RequestTodo struct {
+	Content string `json:"content"`
+}
+
+// GetContent returns the value of Content.
+func (s *RequestTodo) GetContent() string {
+	return s.Content
+}
+
+// SetContent sets the value of Content.
+func (s *RequestTodo) SetContent(val string) {
+	s.Content = val
+}
+
 // Ref: #/components/schemas/Todo
 type Todo struct {
 	ID        int64  `json:"id"`
