@@ -7,16 +7,16 @@ import (
 	"github.com/ritarock/todo-backend/repository/query"
 )
 
-type todoRepository struct {
+type TodoRepository struct {
 	query query.Queries
 }
 
-func NewTodoRepository(db *sql.DB) *todoRepository {
+func NewTodoRepository(db *sql.DB) *TodoRepository {
 	q := query.New(db)
-	return &todoRepository{query: *q}
+	return &TodoRepository{query: *q}
 }
 
-func (t *todoRepository) Create(ctx context.Context, todo *query.Todo) (*query.Todo, error) {
+func (t *TodoRepository) Create(ctx context.Context, todo *query.Todo) (*query.Todo, error) {
 	result, err := t.query.CreateTodo(ctx, query.CreateTodoParams{
 		Content:   todo.Content,
 		Completed: todo.Completed,
@@ -34,7 +34,7 @@ func (t *todoRepository) Create(ctx context.Context, todo *query.Todo) (*query.T
 	return todo, nil
 }
 
-func (t *todoRepository) GetByID(ctx context.Context, id int64) (*query.Todo, error) {
+func (t *TodoRepository) GetByID(ctx context.Context, id int64) (*query.Todo, error) {
 	result, err := t.query.GetTodo(ctx, id)
 	if err != nil {
 		return nil, err
@@ -43,7 +43,7 @@ func (t *todoRepository) GetByID(ctx context.Context, id int64) (*query.Todo, er
 	return &result, err
 }
 
-func (t *todoRepository) GetAll(ctx context.Context) ([]query.Todo, error) {
+func (t *TodoRepository) GetAll(ctx context.Context) ([]query.Todo, error) {
 	result, err := t.query.ListTodos(ctx)
 	if err != nil {
 		return nil, err
@@ -52,7 +52,7 @@ func (t *todoRepository) GetAll(ctx context.Context) ([]query.Todo, error) {
 	return result, err
 }
 
-func (t *todoRepository) Update(ctx context.Context, id int64, todo *query.Todo) error {
+func (t *TodoRepository) Update(ctx context.Context, id int64, todo *query.Todo) error {
 	return t.query.UpdateTodo(ctx, query.UpdateTodoParams{
 		Content:   todo.Content,
 		Completed: todo.Completed,
@@ -60,6 +60,6 @@ func (t *todoRepository) Update(ctx context.Context, id int64, todo *query.Todo)
 	})
 }
 
-func (t *todoRepository) Delete(ctx context.Context, id int64) error {
+func (t *TodoRepository) Delete(ctx context.Context, id int64) error {
 	return t.query.DeleteTodo(ctx, id)
 }

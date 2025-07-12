@@ -12,3 +12,9 @@ sqlc.pull:
 
 sqlc.generate:
 	docker run --rm -v $(PWD):/src -w /src sqlc/sqlc generate
+
+ogen:
+	go run -mod=mod github.com/ogen-go/ogen/cmd/ogen@latest \
+	-package rest \
+	-target api/rest \
+	-clean ./tsp-output/schema/openapi.yaml
